@@ -1,31 +1,45 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Blog extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      visible: false
-    }
+
+  render() {
+    console.log('Blog finds these: ', this.props.blogsSorted)
+    return (
+      <div>
+        <h3>Bloglist</h3>
+        <div>
+          {this.props.blogsSorted
+            .map(blog =>
+              <div className="blog" key={blog.id}>
+                <Link to={`/blogs/${blog.id}`}>
+                  <p>{blog.title}</p>
+                  <p>By: {blog.author}</p>
+                </Link>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    )
   }
-
-  toggleVisibility = () => {
-    this.setState({visible: !this.state.visible})
-  }
-
-render() {
-  const showWhenVisible = { display: this.state.visible ? '' : 'none' }
-
-  return (
-    <div className="blog">
-  <div className="toggleDiv" onClick={this.toggleVisibility}>
-    <p>{this.props.blog.title}</p> <p>By: <i>{this.props.blog.author}</i></p>
-  </div>
-    <div style={showWhenVisible} className="togglableContent">
-      {this.props.children}
-    </div>
-  </div>
-)
-}
 }
 
-export default Blog
+const sortedBlogs = (blogs) => {
+  const sorted = blogs.sort((a, b) => b.likes - a.likes)
+  return sorted
+}
+
+const mapStateToProps = (state) => {
+  return{
+    blogsSorted: sortedBlogs(state.blogs)
+  }
+}
+
+const ConnectedBlog = connect(
+  mapStateToProps,
+  null
+)(Blog)
+
+export default ConnectedBlog

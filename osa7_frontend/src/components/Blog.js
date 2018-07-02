@@ -1,27 +1,45 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Table, Icon } from 'semantic-ui-react'
+import { blogInitialization } from '../reducers/blogReducer'
 
 class Blog extends React.Component {
 
   render() {
     console.log('Blog finds these: ', this.props.blogsSorted)
     return (
-      <div>
-        <h3>Bloglist</h3>
-        <div>
+      <Table celled selectable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Blog ({this.props.blogsSorted.length})</Table.HeaderCell>
+            <Table.HeaderCell>Added by</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {this.props.blogsSorted
             .map(blog =>
-              <div className="blog" key={blog.id}>
-                <Link to={`/blogs/${blog.id}`}>
-                  <p>{blog.title}</p>
-                  <p>By: {blog.author}</p>
-                </Link>
-              </div>
+              <Table.Row key={blog.id}>
+                <Table.Cell>
+                  <Icon name='file outline' />
+                  <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                </Table.Cell>
+                <Table.Cell>
+                  <Icon name='user circle' />
+                  <Link className='username' to={`/users/${
+                    blog.user._id
+                      ? blog.user._id
+                      : blog.user
+                  }`}>
+                    {blog.user.username
+                      ? blog.user.username
+                      : this.props.loggedUser.username}</Link>
+                </Table.Cell>
+              </Table.Row>
             )
           }
-        </div>
-      </div>
+        </Table.Body>
+      </Table>
     )
   }
 }
@@ -33,13 +51,15 @@ const sortedBlogs = (blogs) => {
 
 const mapStateToProps = (state) => {
   return{
-    blogsSorted: sortedBlogs(state.blogs)
+    blogsSorted: sortedBlogs(state.blogs),
+    loggedUser: state.loggedUser,
+    users: state.users
   }
 }
 
 const ConnectedBlog = connect(
   mapStateToProps,
-  null
+  { blogInitialization }
 )(Blog)
 
 export default ConnectedBlog

@@ -1,46 +1,70 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import Comments from './Comments'
 import { removeBlog  } from '../reducers/singleBlogReducer'
-import { blogsAfterRemove } from '../reducers/blogReducer'
+import { blogsAfterRemove, addLike } from '../reducers/blogReducer'
 import { notify } from '../reducers/notificationReducer'
+import { Redirect, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Card, Icon, Button } from 'semantic-ui-react'
 
 class BlogInfo extends React.Component {
-remove = (id) => () => {
-  console.log(id)
-}
 
-like = (id) => () => {
-  console.log(id)
-}
+  render() {
+    const { blog, loggedUser } = this.props
+    const username = blog.user === undefined ? null : blog.user.username
+    console.log(loggedUser.username, username)
 
-render() {
-  const { blog, loggedUser } = this.props
-  const username = blog.user === undefined ? null : blog.user.username
-  console.log(loggedUser.username, username)
-
-  const remove = (blog) => {
-    return async () => {
-      window.confirm(`Do you really want to delete blog "${blog.title}" by ${blog.author}?`)
-      this.props.notify(`Blog titled "${blog.title}" by ${blog.author} has been deleted.`)
-      this.props.removeBlog(blog.id)
-      this.props.blogsAfterRemove(blog.id)
+    const remove = (blog) => {
+      return async () => {
+        if (window.confirm(`Do you really want to delete blog "${blog.title}" by ${blog.author}?`)) {
+        this.props.notify(`Blog titled "${blog.title}" by ${blog.author} has been deleted.`)
+        this.props.removeBlog(blog.id)
+        this.props.blogsAfterRemove(blog.id)}
+      }
     }
-  }
 
-  const deleteButton = blog.user === false || username === loggedUser.username
-    ? <button onClick={remove(blog)}>Delete</button>
-    : null
+    const like = (blog) => {
+      return async () => {
+        this.props.notify(`Blog "${blog.title}" has been upvoted.`)
+        this.props.addLike(blog)
+      }
+    }
 
-  return (
-    <div className="blog-info">
-      <h3>{blog.title}</h3>
-      <div>By: {blog.author}</div>
-      <a href={blog.url}>{blog.url}</a>
-      <div>{blog.likes} likes <button onClick={this.like(blog.id)}>Like</button></div>
-      <div>Added by {username}</div>
-      {deleteButton}
-    </div>
-  )}
+    const deleteButton = blog.user === false || username === loggedUser.username
+      ? <button onClick={remove(blog)}>Delete</button>
+      : null
+
+    const blogInfo = () => (
+      <div>
+        <Card color='teal'>
+          <Card.Content>
+            <Card.Header>{blog.title} </Card.Header>
+            <Card.Meta>Added by user
+              <Link className="username" to={
+                blog.user
+                  ? `/users/${blog.user._id}`
+                  : '#'
+              }> {username}</Link>
+            </Card.Meta>
+            <br />
+            <Card.Content>
+              <Icon name='world' />&nbsp;<a className='website' href={blog.url}>{blog.url}</a></Card.Content>
+            <Card.Content><Icon name='keyboard outline' />&nbsp;{blog.author}</Card.Content>
+            <br />
+            <Button color='red' size='mini' onClick={like(blog)}><Icon name='heart outline' /> {blog.likes}</Button>
+          </Card.Content>
+          {deleteButton}
+
+        </Card>
+        <Comments />
+      </div>
+    )
+
+    return (
+      this.props.blog === 'This blog is removed'
+        ? <Redirect to="/" />
+        : blogInfo()
+    )}
 }
 
 const mapStateToProps = (state) => {
@@ -53,6 +77,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   removeBlog,
   blogsAfterRemove,
+  addLike,
   notify
 }
 

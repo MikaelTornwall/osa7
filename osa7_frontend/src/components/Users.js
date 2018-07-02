@@ -2,21 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { userInitialization } from '../reducers/userReducer'
+import { List, Icon } from 'semantic-ui-react'
 
 class Users extends React.Component {
 
   render() {
     return (
       <div>
-        <h3>Users</h3>
+        <h3>Users ({this.props.sortedUsers.length})</h3>
+        <List>
         {this.props.sortedUsers.map(user =>
-          <div key={user.id}>
-            <Link to={`/users/${user.id}`}>
-              {user.username} <br />
-              Blogs: {user.blogs.length}
-            </Link>
-          </div>
+          <List.Item as={Link} to={`/users/${user.id}`} key={user.id}>
+          <Icon name='user circle' />
+          <List.Content>
+            <List.Header color='teal' className="username">{user.username}</List.Header>
+            <List.Description>{user.blogs.length} blogs</List.Description>
+            </List.Content>
+          </List.Item>
         )}
+        </List>
       </div>
     )
   }

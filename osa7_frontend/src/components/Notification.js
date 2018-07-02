@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Message } from 'semantic-ui-react'
 
 class Notification extends React.Component {
   render() {
     return (
-      <p style={{ color: 'green' }}>{this.props.notification}</p>
+      <Message color='teal'>{this.props.notification}</Message>
     )
   }
 }

@@ -1,42 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+.title {
+  font-family: 'Pacifico', cursive !important;
+  font-size: 2.5rem !important;
+}
+
+div.card {
+  min-width: 300px !important;
+}
+
+a {
+  color: #1b1c1d;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #27292a;
+}
+
+a.username,
+a.website {
+  color: rgba(0, 182, 173, 1);
+}
+
+a.username:hover,
+a.website:hover,
+a.username:active,
+a.website:active,
+a.username:focus,
+a.website:focus {
+  color: #009c95;
+}
+
+
+div.header {
+  color: rgba(0, 182, 173, 1) !important;
+}
+
 button {
-  background: rgba(63, 191, 165, 1);
+  background: rgba(0, 182, 173, 1);
   color: white;
   border: none;
+  border-radius: 3px;
+  padding: .2rem;
+  margin-top: .3rem;
+  cursor: pointer;
+  padding: .6rem;
+}
+
+button:active {
+  background: #009c95;
+}
+
+input {
+  border-width: 0 0 1px 0;
+  border-color: rgba(0, 182, 173, .5);
+  width: 200px;
+  background: white;
+}
+
+input:focus {
+  border-color: rgba(0, 182, 173, 1);
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 10px white inset;
+}
+
+input[type=submit] {
+  background: rgba(0, 182, 173, 1);
+  color: white;
+  border: none;
+  border-radius: 3px;
   padding: .2rem;
   margin-top: .3rem;
   cursor: pointer;
 }
 
-button:active {
-  background: rgba(63, 191, 165, .7);
-}
-
-input {
-  border-width: 0 0 1px 0;
-  border-color: rgba(63, 191, 165, .2);
-  width: 150px;
-  background: white;
-}
-
-input:focus {
-  border-color: rgba(63, 191, 165, 1);
-}
-
-input[type=submit] {
-  background: rgba(63, 191, 165, 1);
-  color: white;
-  border: none;
-  padding: .2rem;
-  margin-top: .3rem;
-}
-
 input[type=submit]:active {
-  background: rgba(63, 191, 165, .7);
+  background: #009c95;
 }
 
 button:focus,
 input:focus {
   outline: none;
+}
+
+.container {
+  margin: 2rem;
 }
 
 .blog-container {
@@ -57,12 +109,27 @@ input:focus {
   margin: .3rem;
 }
 
-.message {
-  background: #EEE;
-  padding: 1rem;
+.cancel-button {
+  background: #1b1c1d;
+  margin-left: 3.67rem;
+  padding: .2rem 1.2rem;
 }
 
-.cancel-button {
-  margin-left: 3.3rem;
-  padding: .2rem 1.2rem;
+.cancel-button:hover,
+.cancel-button:focus,
+.cancel-button:active {
+  background: #27292a;
+}
+
+.username {
+  text-transform: capitalize;
+}
+
+h4.ui.teal.header:hover {
+  color: #009c95 !important;
+}
+
+h4.ui.teal.header:focus,
+h4.ui.teal.header:active {
+  color: rgb(0, 138, 131) !important;
 }

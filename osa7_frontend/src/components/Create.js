@@ -23,13 +23,10 @@ class Create extends React.Component {
         url: this.state.url
       }
 
-      if (blogObject.author.length === 0 || blogObject.url.length === 0) {
+      if (blogObject.title.length === 0 || blogObject.author.length === 0 || blogObject.url.length === 0) {
         this.props.notify('All fields must be filled')
         return
       }
-
-      this.props.create(blogObject)
-      this.props.notify(`A blog "${this.state.title}" by author ${this.state.author} has been created.`)
 
       this.setState({
         title: '',
@@ -37,6 +34,8 @@ class Create extends React.Component {
         url: ''
       })
 
+      this.props.create(blogObject)
+      this.props.notify(`A blog "${this.state.title}" by author ${this.state.author} has been created.`)
     } catch (exception) {
       this.props.notify('All fields must be filled')
     }

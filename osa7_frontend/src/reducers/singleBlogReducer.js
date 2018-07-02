@@ -22,11 +22,11 @@ export const findBlog = (id) => {
   }
 }
 
-export const removeBlog = (id) => {
+export const removeBlog = () => {
   return async (dispatch) => {
     dispatch({
       type: 'REMOVED_BLOG',
-      data: null
+      data: 'This blog is removed'
     })
   }
 }

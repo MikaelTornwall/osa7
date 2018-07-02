@@ -1,10 +1,9 @@
 import React from 'react'
-import Menu from './components/Menu'
+import Navigation from './components/Menu'
 import Blog from './components/Blog'
 import BlogInfo from './components/BlogInfo'
 import Users from './components/Users'
 import UserBlogs from './components/UserBlogs'
-import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import Notification from './components/Notification'
@@ -16,6 +15,7 @@ import { findBlog } from './reducers/singleBlogReducer'
 import { findUserById } from './reducers/singleUserReducer'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { Container, Header, Icon } from 'semantic-ui-react'
 
 class App extends React.Component {
   componentDidMount = async () => {
@@ -25,56 +25,6 @@ class App extends React.Component {
     const loggedUser = window.localStorage.getItem('loggedUser')
     const user = JSON.parse(loggedUser)
     this.props.initLoggedUser(user)
-  }
-
-  removeBlog = (blog) => {
-    return async () => {
-      try {
-        if (window.confirm(`Do you really want delete blog "${blog.title}" by ${blog.author}?`)) {
-          console.log('Delete blog', blog.id)
-          const removedBlog = await blogService.remove(blog.id)
-          const blogs = this.state.blogs.filter(b => b.id !== blog.id)
-          this.setState({
-            message: `Successfully deleted blog "${blog.title}" by ${blog.author}`,
-            color: 'green',
-            blogs
-          })
-          console.log('Success!')
-          setTimeout(() => {
-            this.setState({ message: null, color:null })
-          }, 5000)
-        }
-      } catch (excpetion) {
-        this.setState({ message: "The blog has already been deleted" })
-        setTimeout(() => {
-          this.setState({ message: null })
-        }, 5000)
-      }
-    }
-  }
-
-  like = (id) => {
-    return async () => {
-      console.log('This is the id: ', id)
-
-      const blog = this.state.blogs.find(blog => blog.id === id)
-      console.log("This is the blog.id", blog.id)
-      console.log(blog.id === id)
-
-      const blogObject = {
-        loggedUser: blog.loggedUser,
-        likes: blog.likes + 1,
-        author: blog.author,
-        title: blog.title,
-        url: blog.url
-      }
-
-
-      const changedBlog = await blogService.update(id, blogObject)
-
-      const blogs = this.state.blogs.filter(blog => blog.id !== id)
-      this.setState({ blogs: blogs.concat(changedBlog).sort((a, b) => b.likes - a.likes ) })
-    }
   }
 
   render() {
@@ -101,7 +51,7 @@ class App extends React.Component {
 
     const loggedIn = () => (
       <div>
-        <Menu />
+        <Navigation />
         <Route exact path="/" render={() =>
           this.props.loggedUser
             ? blogForm()
@@ -110,9 +60,7 @@ class App extends React.Component {
         />
         <Route exact path="/users" render={() => <Users /> } />
         <Route exact path="/blogs/:id" render={({ match }) =>
-          this.props.blog
-            ? <BlogInfo blog={blogById(match.params.id)} />
-            : <Redirect to="/" />
+          <BlogInfo blog={blogById(match.params.id)} />
         } />
         <Route exact path="/users/:id" render={({ match }) =>
           <UserBlogs blogUser={userById(match.params.id)} />
@@ -121,9 +69,12 @@ class App extends React.Component {
     )
 
     return (
-      <div>
-        <h1>Blog App</h1>
-        <Notification />
+      <Container>
+        <Header as='h1' className='title'><Icon name='star half outline' flipped='horizontally' />Bloggist</Header>
+        {this.props.notification
+          ? <Notification />
+          : null
+        }
         <Router>
           <div>
             <div className="app">
@@ -135,7 +86,7 @@ class App extends React.Component {
             </div>
           </div>
         </Router>
-      </div>
+      </Container>
     )
   }
 }
@@ -151,7 +102,6 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => {
   return {
     blogs: state.blogs,
-    blog: state.blog,
     users: state.users,
     loggedUser: state.loggedUser,
     notification: state.notification

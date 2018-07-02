@@ -7,6 +7,8 @@ blogsRouter.get('/', async (req, res) => {
   const blogs = await Blog
   .find({})
   .populate('user', { username: 1, name: 1 })
+  .populate('comment', { date: 1 })
+
   res.json(blogs.map(Blog.format))
 })
 
@@ -15,6 +17,7 @@ blogsRouter.get('/:id', async (req, res) => {
     const blog  = await Blog
     .findById(req.params.id)
     .populate('user', { username: 1 })
+    .populate('comment', { date: 1, comment: 1})
 
     if (blog) {
       res.json(Blog.format(blog))

@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { List, Header } from 'semantic-ui-react'
 
 class UserBlogs extends React.Component {
 
@@ -11,13 +13,19 @@ class UserBlogs extends React.Component {
 
     return (
       <div>
-        <h3>{username}</h3>
-        <div>
-          <h3>Added blogs:</h3>
+        <Header as="h3">Profile: <span className="username">{username}</span></Header>
+        <List>
+          <Header as="h4">Added blogs ({blogTitles.length}):</Header>
           {blogTitles.map(blog =>
-            <div key={blog._id}>{blog.title}</div>
+            <List.Item
+              key={blog._id}
+              as={Link}
+              to={`/blogs/${blog._id}`}
+              icon='file outline'
+              content={blog.title}
+            />
           )}
-        </div>
+        </List>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { notify } from '../reducers/notificationReducer'
 import { create } from '../reducers/blogReducer'
 
-class Create extends React.Component {
+export class Create extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

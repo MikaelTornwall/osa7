@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Comments /> renders correctly 1`] = `
+<div
+  className="ui large comments"
+>
+  <h3
+    className="ui dividing header"
+  >
+    Comments 
+    <span
+      className="comment-header"
+    >
+      (
+      1
+      )
+    </span>
+  </h3>
+  <div
+    className="comment"
+  >
+    <i
+      aria-hidden="true"
+      className="comment outline icon"
+    />
+    <div
+      className="metadata"
+    >
+      Sun Jul 01 2018 20:42:05 GMT-0600 (CST)
+    </div>
+    <div
+      className="content"
+    >
+      <div
+        className="comment"
+      >
+        Very good!
+      </div>
+    </div>
+  </div>
+  <br />
+  <div>
+    <form
+      action={undefined}
+      className="ui reply form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="field"
+      >
+        <textarea
+          content={undefined}
+          disabled={undefined}
+          name="comment"
+          onChange={[Function]}
+          onInput={[Function]}
+          required={undefined}
+          rows={3}
+          style={
+            Object {
+              "resize": "",
+            }
+          }
+          type={undefined}
+          value=""
+        />
+      </div>
+      <button
+        className="ui teal button"
+        disabled={undefined}
+        onClick={[Function]}
+        role="button"
+        tabIndex={undefined}
+        type="submit"
+      >
+        <i
+          aria-hidden="true"
+          className="edit icon"
+        />
+        Comment
+      </button>
+    </form>
+  </div>
+</div>
+`;

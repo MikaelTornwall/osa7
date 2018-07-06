@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Create /> renders correctly 1`] = `
+<div>
+  <h3>
+    Create new blog
+  </h3>
+  <form
+    onSubmit={[Function]}
+  >
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            Title
+          </td>
+          <td>
+            <input
+              name="title"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Author
+          </td>
+          <td>
+            <input
+              name="author"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Url
+          </td>
+          <td>
+            <input
+              name="url"
+              onChange={[Function]}
+              type="url"
+              value=""
+            />
+          </td>
+        </tr>
+        <tr>
+          <td />
+          <td>
+            <input
+              type="submit"
+              value="Create"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+`;

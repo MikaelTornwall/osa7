@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Table, Icon } from 'semantic-ui-react'
-import { blogInitialization } from '../reducers/blogReducer'
 
 class Blog extends React.Component {
 
@@ -52,14 +51,13 @@ const sortedBlogs = (blogs) => {
 const mapStateToProps = (state) => {
   return{
     blogsSorted: sortedBlogs(state.blogs),
-    loggedUser: state.loggedUser,
-    users: state.users
+    loggedUser: state.loggedUser
   }
 }
 
 const ConnectedBlog = connect(
   mapStateToProps,
-  { blogInitialization }
+  null
 )(Blog)
 
 export default ConnectedBlog

@@ -7,7 +7,7 @@ import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Card, Icon, Button } from 'semantic-ui-react'
 
-class BlogInfo extends React.Component {
+export class BlogInfo extends React.Component {
 
   render() {
     const { blog, loggedUser } = this.props
@@ -17,9 +17,9 @@ class BlogInfo extends React.Component {
     const remove = (blog) => {
       return async () => {
         if (window.confirm(`Do you really want to delete blog "${blog.title}" by ${blog.author}?`)) {
-        this.props.notify(`Blog titled "${blog.title}" by ${blog.author} has been deleted.`)
-        this.props.removeBlog(blog.id)
-        this.props.blogsAfterRemove(blog.id)}
+          this.props.notify(`Blog titled "${blog.title}" by ${blog.author} has been deleted.`)
+          this.props.removeBlog(blog.id)
+          this.props.blogsAfterRemove(blog.id)}
       }
     }
 

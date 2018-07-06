@@ -4,7 +4,7 @@ import { notify } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import { Comment, Header, Form, Button, Icon } from 'semantic-ui-react'
 
-class Comments extends React.Component {
+export class Comments extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -41,13 +41,13 @@ class Comments extends React.Component {
 
     return (
       <Comment.Group size='large'>
-        <Header as='h3' dividing>Comments ({comments.length})</Header>
+        <Header as='h3' dividing>Comments <span className='comment-header'>({comments.length})</span></Header>
         {comments.map(comment =>
           <Comment key={comment._id}>
             <Icon name='comment outline' />
             <Comment.Metadata>{comment.date}</Comment.Metadata>
             <Comment.Content>
-              {comment.comment}
+              <div className='comment'>{comment.comment}</div>
             </Comment.Content>
           </Comment>
         )}

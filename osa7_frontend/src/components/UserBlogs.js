@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { List, Header } from 'semantic-ui-react'
 
-class UserBlogs extends React.Component {
+export class UserBlogs extends React.Component {
 
   render() {
     const { user } = this.props
@@ -16,15 +16,17 @@ class UserBlogs extends React.Component {
         <Header as="h3">Profile: <span className="username">{username}</span></Header>
         <List>
           <Header as="h4">Added blogs ({blogTitles.length}):</Header>
-          {blogTitles.map(blog =>
-            <List.Item
-              key={blog._id}
-              as={Link}
-              to={`/blogs/${blog._id}`}
-              icon='file outline'
-              content={blog.title}
-            />
-          )}
+          <div className='userblogs'>
+            {blogTitles.map(blog =>
+              <List.Item
+                key={blog._id}
+                as={Link}
+                to={`/blogs/${blog._id}`}
+                icon='file outline'
+                content={blog.title}
+              />
+            )}
+          </div>
         </List>
       </div>
     )
@@ -33,8 +35,7 @@ class UserBlogs extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    blogs: state.blogs
+    user: state.user
   }
 }
 

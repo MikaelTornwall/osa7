@@ -23,8 +23,10 @@ class App extends React.Component {
     this.props.userInitialization()
 
     const loggedUser = window.localStorage.getItem('loggedUser')
-    const user = JSON.parse(loggedUser)
-    this.props.initLoggedUser(user)
+
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser)
+      this.props.initLoggedUser(user)}
   }
 
   render() {
@@ -70,7 +72,7 @@ class App extends React.Component {
 
     return (
       <Container>
-        <Header as='h1' className='title'><Icon name='star half outline' flipped='horizontally' />Bloggist</Header>
+        <Header as='h1' className='title'><Icon color='red' name='star half outline' flipped='horizontally' />Bloggist</Header>
         {this.props.notification
           ? <Notification />
           : null

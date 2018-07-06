@@ -1,6 +1,4 @@
-import loginService from '../services/login'
 import blogService from '../services/blogs'
-import { notify } from '../reducers/notificationReducer'
 
 const initialState = JSON.parse(window.localStorage.getItem('loggedUser'))
 
@@ -21,16 +19,16 @@ const loginReducer = (state = initialState, action) => {
 export const login = (newLogin) => {
   return async (dispatch) => {
     try {
-    console.log('THIS SHOULD FIRE ON REFRESH')
-    window.localStorage.setItem('loggedUser', JSON.stringify(newLogin))
-    blogService.setToken(newLogin.token)
-    dispatch({
-      type: 'LOGIN',
-      loggedUser: newLogin
-    })
-  } catch (exception) {
-    return 'Invalid username or password'
-  }
+      console.log('THIS SHOULD FIRE ON REFRESH')
+      window.localStorage.setItem('loggedUser', JSON.stringify(newLogin))
+      blogService.setToken(newLogin.token)
+      dispatch({
+        type: 'LOGIN',
+        loggedUser: newLogin
+      })
+    } catch (exception) {
+      return 'Invalid username or password'
+    }
   }
 }
 

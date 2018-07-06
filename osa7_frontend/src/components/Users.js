@@ -11,15 +11,15 @@ class Users extends React.Component {
       <div>
         <h3>Users ({this.props.sortedUsers.length})</h3>
         <List>
-        {this.props.sortedUsers.map(user =>
-          <List.Item as={Link} to={`/users/${user.id}`} key={user.id}>
-          <Icon name='user circle' />
-          <List.Content>
-            <List.Header color='teal' className="username">{user.username}</List.Header>
-            <List.Description>{user.blogs.length} blogs</List.Description>
-            </List.Content>
-          </List.Item>
-        )}
+          {this.props.sortedUsers.map(user =>
+            <List.Item as={Link} to={`/users/${user.id}`} key={user.id}>
+              <Icon name='user circle' />
+              <List.Content>
+                <List.Header color='teal' className="username">{user.username}</List.Header>
+                <List.Description>{user.blogs.length} blogs</List.Description>
+              </List.Content>
+            </List.Item>
+          )}
         </List>
       </div>
     )

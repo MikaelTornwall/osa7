@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../reducers/loginReducer'
-import { Menu, Header, Button } from 'semantic-ui-react'
+import { Menu, Header } from 'semantic-ui-react'
 
 
 class Navigation extends React.Component {

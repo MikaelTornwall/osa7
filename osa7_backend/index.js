@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const middleware = require('./utils/middleware')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const Blog = require('./models/blog')
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
@@ -13,17 +12,18 @@ const commentsRouter = require('./controllers/comments')
 const config = require('./utils/config')
 
 mongoose
-.connect(config.url)
-.then(() => {
-  console.log('connected to database', config.url)
-})
-.catch(error => {
-  console.log(error)
+    .connect(config.url)
+    .then(() => {
+    console.log('connected to database', config.url)
+    })
+    .catch(error => {
+    console.log(error)
 })
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.tokenExtractor)
+app.use(express.static('build'))
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
@@ -36,10 +36,10 @@ server.listen(config.port, () => {
 })
 
 server.on('close', () => {
-  mongoose.connection.close()
+    mongoose.connection.close()
 })
 
 module.exports = {
-  app,
-  server
+    app,
+    server
 }
